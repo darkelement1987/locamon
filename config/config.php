@@ -5,6 +5,7 @@ $servername = "servername";
 $username = "username";
 $password = "password";
 $database = "database";
+$type = "mad"; // 'mad' or 'rdm', default = mad
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
