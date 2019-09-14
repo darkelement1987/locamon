@@ -7,6 +7,13 @@ $password = "password";
 $database = "database";
 $type = "mad"; // 'mad' or 'rdm', default = mad
 
+// Images
+
+$useImages = "true";
+$assetRepo = "https://raw.githubusercontent.com/ZeChrales/PogoAssets/"; // default = ZeChrales/PogoAssets, use raw link
+
+// !!! Don't touch stuff below !!!
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
