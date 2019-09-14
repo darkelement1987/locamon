@@ -15,7 +15,7 @@ $title = "Locamon";
 
 // !!! Don't touch stuff below !!!
 
-$assetRepo = "https://raw.githubusercontent.com/ZeChrales/PogoAssets/"; // default = ZeChrales/PogoAssets, use raw link
+$assetRepo = "https://raw.githubusercontent.com/geekygreek7/pokedave_shuffle_icons_-PMSF-/master/"; // default = ZeChrales/PogoAssets, use raw link
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
