@@ -13,7 +13,6 @@ function monMad() {
           echo "<td> " . $iv . "%</td>";
           echo "<td> " . $row["cp"] . "</td>";
           echo "<td> " . $disappear_time[1] . "</td>";
-          echo "<td> " . $row["encounter_id"] . "</td>";
           echo "</tr>";
       }
   } else {
