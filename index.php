@@ -13,7 +13,8 @@ require 'config/config.php';
 include 'config/functions.php';
 index();
 ?>
-
+  
+//TEMP LINKS TO THE PAGES
 <p><a href="pages/raids.php">RAIDS</a></p>
 <p><a href="pages/pokemon.php">MONS</a></p>
 
