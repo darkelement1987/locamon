@@ -1,24 +1,18 @@
 <?php
 include '../config/functions.php';
 ?>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.bootstrap4.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.0/css/scroller.bootstrap4.css"/>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/scroller/2.0.0/js/dataTables.scroller.js"></script>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
 <script>$(document).ready( function () {
-    $('#example').DataTable();
+    $('#mon_table').DataTable();
 } );</script>
+</head>
 <h3>Locamon <b>POKEMON</b></h3>
 <br>
 <br>
-<table id="example" class="table table-striped table-bordered" style="width:100%">
+<table id="mon_table" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
             <th>Pokemon</th>
