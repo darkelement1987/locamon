@@ -7,7 +7,7 @@ include '../config/functions.php';
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
 <script>$(document).ready( function () {
     $('#mon_table').DataTable({
-        "order": [[ 3, "desc" ]]
+        "order": [[ 4, "desc" ]]
     });
 } );</script>
 </head>
