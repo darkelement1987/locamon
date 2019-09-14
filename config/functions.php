@@ -7,7 +7,7 @@ function monMad() {
           $disappear_time = explode(" ", $row["disappear_time"]);
           echo "<tr>";
           echo "<td> <img height='42' width='42' src='" . $assetRepo . "pokemon_icon_"; if ($row["pokemon_id"] < 100 && $row["pokemon_id"] > 9) { echo '0' . $row["pokemon_id"]; } elseif ($row["pokemon_id"] < 10) { echo '00' . $row["pokemon_id"]; } else { echo $row["pokemon_id"]; }; echo "_00.png'</td>";
-          echo "<td> " . $row["latitude"] . ", " . $row["longitude"] . "</td>";
+          echo "<td> <a href='https://maps.google.com/?q=" . $row["latitude"] . "," . $row["longitude"] . "'>MAP</a></td>";
           echo "<td> " . $row["cp"] . "</td>";
           echo "<td> " . $disappear_time[1] . "</td>";
           echo "<td> " . $row["encounter_id"] . "</td>";
