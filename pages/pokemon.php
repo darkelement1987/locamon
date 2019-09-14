@@ -1,4 +1,4 @@
 <?php
-include './config/functions.php';
+include '../config/functions.php';
 monMad();
 ?>

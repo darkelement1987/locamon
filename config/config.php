@@ -1,11 +1,15 @@
 <?php
 
 // Connect to Database
-$servername = "servername";
-$username = "username";
-$password = "password";
-$database = "database";
+$servername = "";
+$username = "";
+$password = "";
+$database = "";
 $type = "mad"; // 'mad' or 'rdm', default = mad
+
+// Frontend
+
+$title = "Locamon";
 
 // Images
 
