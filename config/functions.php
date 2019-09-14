@@ -1,5 +1,6 @@
 <?php
-function pokemon() {
+function maddMon() {
   require('config.php');
+  $result = $conn->query("SELECT * FROM pokemon");
 }
 ?>
