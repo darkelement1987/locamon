@@ -19,6 +19,7 @@ include '../config/functions.php';
         <tr>
             <th>Pokemon</th>
             <th>lat, lon</th>
+            <th>iv</th>
             <th>cp</th>
             <th>disappear_time</th>
             <th>encounter_id</th>
