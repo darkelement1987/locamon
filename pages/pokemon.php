@@ -17,12 +17,11 @@ include '../config/functions.php';
 <table id="mon_table" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>Pokemon</th>
-            <th>lat, lon</th>
-            <th>iv</th>
-            <th>cp</th>
-            <th>disappear_time</th>
-            <th>encounter_id</th>
+            <th>Pokemon:</th>
+            <th>Google Maps:</th>
+            <th>IV:</th>
+            <th>CP:</th>
+            <th>Disappears:</th>
         </tr>
     </thead>
     <tbody>
