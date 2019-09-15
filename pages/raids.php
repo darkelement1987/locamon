@@ -1,5 +1,6 @@
 <?php
 include '../config/functions.php';
+require '../config/config.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,7 @@ include '../config/functions.php';
 } );</script>
 </head>
 <body>
-<h3>Locamon <b>RAIDS</b></h3>
+<h3><?php echo $title;?> <b>RAIDS</b></h3>
 <br>
 <br>
 <table id="raid_table" class="table table-striped table-bordered" style="width:100%">

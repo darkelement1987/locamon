@@ -1,5 +1,6 @@
 <?php
 include '../config/functions.php';
+require '../config/config.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,5 +13,6 @@ include '../config/functions.php';
 } );</script>
 </head>
 <body>
+<h3><?php echo $title;?> <b>QUESTS</b></h3>
 </body>
 </html>
