@@ -1,5 +1,6 @@
 <?php
 require 'config/config.php';
+include 'config/functions.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,6 @@ require 'config/config.php';
 </head>
 <body>
 <?php
-include 'config/functions.php';
 index();
 ?>
   
