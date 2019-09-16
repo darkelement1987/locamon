@@ -31,10 +31,11 @@ switch ($type) {
     <thead>
         <tr>
             <th>Pokemon:</th>
-            <th>Google Maps:</th>
             <th>IV:</th>
             <th>CP:</th>
             <th>Disappears:</th>
+			<th>Scanned:</th>
+            <th>Google Maps:</th>
         </tr>
     </thead>
     <tbody>
