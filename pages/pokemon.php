@@ -1,7 +1,14 @@
 <?php
-include '../config/functions.php';
 require '../config/config.php';
-?>
+switch ($type) {
+    case "rdm":
+        include '../config/functions_rdm.php';
+    case "mad":
+        include '../config/functions_mad.php';
+    default:
+        include '../config/functions_mad.php';
+    }
+        ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +37,7 @@ require '../config/config.php';
     </thead>
     <tbody>
             <?php
-                monMad();
+                getMons();
             ?>
     </tbody>
 </table>
