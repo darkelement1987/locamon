@@ -19,4 +19,4 @@ Join our Discord, especially if you are PHP-Developer.
 - Add 'time left' column to mons (https://www.php.net/manual/en/function.timezone-offset-get.php)
 - Add 'Scanned:'-column (working on that)
 - Add optional reverse geocoding (needs google maps key) to show full address @ map link
-- Pull Raidboss moves from moves.json```
+- Pull Raidboss moves from moves.json
