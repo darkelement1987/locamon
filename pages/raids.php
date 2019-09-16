@@ -1,7 +1,16 @@
 <?php
-include '../config/functions.php';
 require '../config/config.php';
-?>
+switch ($type) {
+    case "rdm":
+        include '../config/functions_rdm.php';
+		break;
+    case "mad":
+        include '../config/functions_mad.php';
+		break;
+	default:
+	include '../config/functions_mad.php';
+    }
+        ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +30,15 @@ require '../config/config.php';
         <tr>
             <th>Raid Boss</th>
             <th>Gym Name</th>
-            <th>cp</th>
+            <th>CP</th>
             <th>Level</th>
             <th>Time</th>
+            <th>Scanned</th>
         </tr>
     </thead>
     <tbody>
             <?php
-                raidMad();
+                getRaids();
             ?>
     </tbody>
 </table>

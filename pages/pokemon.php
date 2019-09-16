@@ -1,7 +1,16 @@
 <?php
-include '../config/functions.php';
 require '../config/config.php';
-?>
+switch ($type) {
+    case "rdm":
+        include '../config/functions_rdm.php';
+		break;
+    case "mad":
+        include '../config/functions_mad.php';
+		break;
+	default:
+	include '../config/functions_mad.php';
+    }
+        ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +31,16 @@ require '../config/config.php';
     <thead>
         <tr>
             <th>Pokemon:</th>
-            <th>Google Maps:</th>
             <th>IV:</th>
             <th>CP:</th>
             <th>Disappears:</th>
+			<th>Scanned:</th>
+            <th>Google Maps:</th>
         </tr>
     </thead>
     <tbody>
             <?php
-                monMad();
+                getMons();
             ?>
     </tbody>
 </table>
