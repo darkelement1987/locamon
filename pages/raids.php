@@ -30,6 +30,7 @@ switch ($type) {
         <tr>
             <th>Raid Boss</th>
             <th>Gym Name</th>
+			<th>Moves</th>
             <th>CP</th>
             <th>Level</th>
             <th>Time</th>
