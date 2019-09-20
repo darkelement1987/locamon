@@ -3,7 +3,7 @@ function getMons()
 {
     $mon_name = json_decode(file_get_contents('../json/pokedex.json'), true);
     require('config.php');
-    $result = $conn->query("SELECT * FROM pokemon WHERE disappear_time > utc_timestamp() and pokemon_id>493");
+    $result = $conn->query("SELECT * FROM pokemon WHERE disappear_time > utc_timestamp()");
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
             $cp = $row->cp;
