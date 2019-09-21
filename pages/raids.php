@@ -1,31 +1,9 @@
 <?php
-require '../config/config.php';
-switch ($type) {
-    case "rdm":
-        include '../config/functions_rdm.php';
-		break;
-    case "mad":
-        include '../config/functions_mad.php';
-		break;
-	default:
-	include '../config/functions_mad.php';
-    }
-        ?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
-<script>$(document).ready( function () {
-    $('#raid_table').DataTable();
-} );</script>
-</head>
-<body>
-<h3><?php echo $title;?> <b>RAIDS</b></h3>
-<br>
-<br>
-<table id="raid_table" class="table table-striped table-bordered" style="width:100%">
+$raids = getRaids();
+?>
+
+
+<table id="raid_table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Raid Boss</th>
@@ -37,10 +15,36 @@ switch ($type) {
         </tr>
     </thead>
     <tbody>
-            <?php
-                getRaids();
-            ?>
+        <?php if (is_array($raids)) {
+            foreach ($raids as $row) { ?>
+                <tr>
+                    <td>
+                        <img height='42' width='42' src='<?= $row->sprite ?>' />
+                    </td>
+                    <td><?= $row->name ?></td>
+                    <td><?= $row->cp ?></td>
+                    <td><?= str_repeat('★', $row->level) ?></td>
+                    <td> <?= $row->time_start ?> - <?= $row->time_end ?></td>
+                    <td><?= $row->raid_scan_time ?></td>
+                </tr>
+        <?php }
+        } else {
+            echo $raids;
+        }
+        ?>
     </tbody>
 </table>
+<script>
+    $(document).ready(function() {
+        let raidTable = $('#raid_table').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true
+        });
+
+    });
+</script>
 </body>
+
 </html>
