@@ -1,10 +1,10 @@
 <?php
 
 // Connect to Database
-$servername = "";
-$username = "";
-$password = "";
-$database = "";
+$servername = "pokewwijk.nl";
+$username = "rmuser";
+$password = "password";
+$database = "rocketmap";
 $type = "mad"; // 'mad' or 'rdm', default = mad
 
 // Frontend
