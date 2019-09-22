@@ -38,7 +38,7 @@ function index()
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
         } else {
-            require_once(DIRECTORY  . '/pages/' . $page . '.html');
+            echo "Does not exist";
         }
     }
 }
