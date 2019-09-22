@@ -19,6 +19,18 @@ switch ($type) {
         break;
 }
 
+switch ($clock) {
+    case '24':
+        $clock = 'H:i:s';
+        break;
+    case '12':
+        $clock = 'g:i:s';
+        break;
+    default:
+        $clock = 'g:i:s';
+        break;
+}
+
 function index()
 {
     if (isset($_GET['page']) && !empty($_GET['page'])) {
