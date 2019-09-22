@@ -1,5 +1,6 @@
 <?php
 $mons = getMons();
+global $clock;
 ?>
 
 <table id="mon_table" class="table table-striped table-bordered" style="width:100%">
@@ -23,8 +24,8 @@ $mons = getMons();
                     </td>
                     <td><?= $row->iv ?>%</td>
                     <td><?= $row->cp ?></td>
-                    <td><?= date('g:i:s', $row->disappear_time) ?></td>
-                    <td><?= date('g:i:s', $row->last_modified) ?></td>
+                    <td><?= date($clock, $row->disappear_time) ?></td>
+                    <td><?= date($clock, $row->last_modified) ?></td>
                     <td>
                         <a href='https://maps.google.com/?q=<?= $row->latitude ?>,<?= $row->longitude ?>'>MAP </a> </td>
                 </tr> <?php }
