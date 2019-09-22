@@ -10,9 +10,10 @@ function getMons()
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
             if ($row->individual_attack !== null && $row->individual_defense !== null &&  $row->individual_stamina !== null) {
-                $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2);
+                $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2) . '%';
             } else {
-                $row->iv = '';
+                $row->iv = '-';
+				$row->cp = '-';
             }
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
