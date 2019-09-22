@@ -22,7 +22,7 @@ global $clock;
                         <img height='42' width='42' src='<?= $row->sprite ?>' />
                         <?= $row->name ?>
                     </td>
-                    <td><?= $row->iv ?>%</td>
+                    <td><?= $row->iv ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= date($clock, $row->disappear_time) ?></td>
                     <td><?= date($clock, $row->last_modified) ?></td>
