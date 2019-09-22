@@ -1,38 +1,46 @@
 <?php
-include '../config/functions.php';
-require '../config/config.php';
+$mons = getMons();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
-<script>$(document).ready( function () {
-    $('#mon_table').DataTable({
-        "order": [[ 4, "desc" ]]
-    });
-} );</script>
-</head>
-<body>
-<h3><?php echo $title;?> <b>POKEMON</b></h3>
-<br>
-<br>
+
 <table id="mon_table" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
             <th>Pokemon:</th>
-            <th>Google Maps:</th>
             <th>IV:</th>
             <th>CP:</th>
             <th>Disappears:</th>
+            <th>Scanned:</th>
+            <th>Google Maps:</th>
         </tr>
     </thead>
     <tbody>
-            <?php
-                monMad();
-            ?>
-    </tbody>
+        <?php if (is_array($mons)) {
+            foreach ($mons as $row) { ?>
+                <tr>
+                    <td>
+                        <img height='42' width='42' src='<?= $row->sprite ?>' />
+                        <?= $row->name ?>
+                    </td>
+                    <td><?= $row->iv ?>%</td>
+                    <td><?= $row->cp ?></td>
+                    <td><?= date($clock, $row->disappear_time) ?></td>
+                    <td><?= date($clock, $row->last_modified) ?></td>
+                    <td>
+                        <a href='https://maps.google.com/?q=<?= $row->latitude ?>,<?= $row->longitude ?>'>MAP </a> </td>
+                </tr> <?php }
+                        } else {
+                            echo $mons;
+                        } ?> </tbody>
 </table>
-</body>
-</html>
+<script>
+    $(document).ready(function() {
+        $('#mon_table').DataTable({
+            order: [
+                [4, "desc"]
+            ],
+            paging: true,
+            lengthChange: true,
+            searching: true,
+        });
+    });
+</script>

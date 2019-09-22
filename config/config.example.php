@@ -11,19 +11,12 @@ $type = "mad"; // 'mad' or 'rdm', default = mad
 
 $title = "Locamon";
 
+// Clock Settings
+
+$clock = "24"; // Set to 24 for 24-hour clock format, 12 for 12-hour clock format
+
 // Images
 
 // !!! Don't touch stuff below !!!
 
 $assetRepo = "https://raw.githubusercontent.com/geekygreek7/pokedave_shuffle_icons_-PMSF-/master/"; // default = ZeChrales/PogoAssets, use raw link
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-?>
-
