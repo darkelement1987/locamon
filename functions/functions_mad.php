@@ -29,14 +29,15 @@ function getRaids()
 {
     global $conn;
     global $assetRepo;
+	global $clock;
     $raids = [];
     $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(a.start, '+00:00', @@global.time_zone)) as start, UNIX_TIMESTAMP(CONVERT_TZ(a.end, '+00:00', @@global.time_zone)) as end, UNIX_TIMESTAMP(CONVERT_TZ(a.spawn, '+00:00', @@global.time_zone)) as spawn, a.pokemon_id, a.move_1, a.move_2, UNIX_TIMESTAMP(CONVERT_TZ(a.last_scanned, '+00:00', @@global.time_zone)) as last_scanned, b.name, a.level, a.cp, c.latitude, c.longitude FROM raid a INNER JOIN gymdetails b INNER JOIN gym c ON a.gym_id = b.gym_id AND a.gym_id = c.gym_id  AND a.end > UTC_TIMESTAMP() ORDER BY a.end ASC";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            $row->time_start = date('g:i:s', $row->start);
-            $row->time_end = date('g:i:s', $row->end);
-            $row->raid_scan_time = date('g:i:s', $row->last_scanned);
+            $row->time_start = date($clock, $row->start);
+            $row->time_end = date($clock, $row->end);
+            $row->raid_scan_time = date($clock, $row->last_scanned);
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 0, 3, STR_PAD_LEFT) . '_00.png';
             $raids[] = $row;
         }
