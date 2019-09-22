@@ -36,9 +36,10 @@ function getDitto()
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
             if ($row->individual_attack !== null && $row->individual_defense !== null &&  $row->individual_stamina !== null) {
-                $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2);
+                $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2) . '%';
             } else {
-                $row->iv = '';
+                $row->iv = '-';
+				$row->cp = '-';
             }
             $row->sprite = $assetRepo . 'pokemon_icon_132_00.png';
             $row->name = 'Ditto';
