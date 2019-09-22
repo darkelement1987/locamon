@@ -10,7 +10,7 @@ $type = "mad"; // 'mad' or 'rdm', default = mad
 // Frontend
 
 $title = "Locamon";
-$clock = ""; // enter "24" for 24-hour format enter "12" for 12-hour format
+$clock = ""; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
 
 // Images
 
