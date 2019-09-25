@@ -10,7 +10,7 @@ $type = "mad"; // 'mad' or 'rdm', default = mad
 // Frontend
 
 $title = "Locamon";
-$monsters = "";
+$monsters = ""; // Show the following pokemon on Pokemon page enter as ids, comma seperated. Entering no ids shows all
 
 // Clock Settings
 
