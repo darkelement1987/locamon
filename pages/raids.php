@@ -38,12 +38,12 @@ $raids = getRaids();
     $(document).ready(function() {
         $('#raid_table').DataTable({
             order: [
-                [5, "desc"]
+                [6, "desc"]
 				],
 
             columnDefs: [
-            { type: 'time-uni', targets: 4 },
-			{ type: 'time-uni', targets: 5 }
+            { type: 'time-uni', targets: 5 },
+			{ type: 'time-uni', targets: 6 }
             ],
 
             paging: true,
