@@ -19,11 +19,9 @@ $raids = getRaids();
         <?php if (is_array($raids)) {
             foreach ($raids as $row) { ?>
                 <tr>
-                    <td>
-                        <img height='42' width='42' src='<?= $row->sprite ?>' />
-                    </td>
+                    <td><img height='42' width='42' src='<?= $row->sprite ?>' /></td>
 					<td><?= $row->bossname ?></td>
-                    <td><?= $row->name ?></td>
+                    <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
                     <td><?= $row->cp ?></td>
                     <td><?= str_repeat('★', $row->level) ?></td>
                     <td> <?= $row->time_start ?> - <?= $row->time_end ?></td>
