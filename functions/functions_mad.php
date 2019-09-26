@@ -70,7 +70,7 @@ function getRaids()
             $row->time_end = date($clock, $row->end);
             $row->raid_scan_time = date($clock, $row->last_scanned);
 			if (empty($row->pokemon_id)){
-				$row->sprite = '/images/egg_' + $row->level + '.png';
+				$row->sprite = 'images/egg_' + $row->level + '.png';
 			} else {
 				$row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 0, 3, STR_PAD_LEFT) . '_00.png';
 			}
