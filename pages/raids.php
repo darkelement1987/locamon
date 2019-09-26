@@ -7,7 +7,6 @@ $raids = getRaids();
     <thead>
         <tr>
             <th>Raid Boss</th>
-			<th>Boss Name</th>
             <th>Gym Name</th>
             <th>CP</th>
             <th>Level</th>
@@ -19,8 +18,7 @@ $raids = getRaids();
         <?php if (is_array($raids)) {
             foreach ($raids as $row) { ?>
                 <tr>
-                    <td><img height='42' width='42' src='<?= $row->sprite ?>' /></td>
-					<td><?= $row->bossname ?></td>
+                    <td><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->bossname ?></td>
                     <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
                     <td><?= $row->cp ?></td>
                     <td><?= str_repeat('★', $row->level) ?></td>
@@ -36,13 +34,20 @@ $raids = getRaids();
 </table>
 <script>
     $(document).ready(function() {
-        let raidTable = $('#raid_table').DataTable({
+        $('#raid_table').DataTable({
+            order: [
+                [5, "desc"]
+				],
+
+            columnDefs: [
+            { type: 'time-uni', targets: 4 },
+			{ type: 'time-uni', targets: 5 }
+            ],
+
             paging: true,
             lengthChange: true,
             searching: true,
-            ordering: true
         });
-
     });
 </script>
 </body>
