@@ -7,6 +7,7 @@ $raids = getRaids();
     <thead>
         <tr>
             <th>Raid Boss</th>
+			<th>Boss Name</th>
             <th>Gym Name</th>
             <th>CP</th>
             <th>Level</th>
@@ -21,6 +22,7 @@ $raids = getRaids();
                     <td>
                         <img height='42' width='42' src='<?= $row->sprite ?>' />
                     </td>
+					<td><?= $row->bossname ?></td>
                     <td><?= $row->name ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= str_repeat('★', $row->level) ?></td>
