@@ -8,6 +8,7 @@ $raids = getRaids();
         <tr>
             <th>Raid Boss</th>
             <th>Gym Name</th>
+            <th>Moves</th>			
             <th>CP</th>
             <th>Level</th>
             <th>Time</th>
@@ -20,6 +21,7 @@ $raids = getRaids();
                 <tr>
                     <td><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->bossname ?></td>
                     <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
+                    <td><?= $row->move_1 . $row->move_2 ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= str_repeat('★', $row->level) ?></td>
                     <td> <?= $row->time_start ?> - <?= $row->time_end ?></td>

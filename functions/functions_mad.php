@@ -63,6 +63,8 @@ function getRaids()
 	global $clock;
     $raids = [];
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
+    $raid_move_1 = json_decode(file_get_contents(DIRECTORY . '/json/moves.json'), true);
+    $raid_move_2 = json_decode(file_get_contents(DIRECTORY . '/json/moves.json'), true);
     $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(a.start, '+00:00', @@global.time_zone)) as start, UNIX_TIMESTAMP(CONVERT_TZ(a.end, '+00:00', @@global.time_zone)) as end, UNIX_TIMESTAMP(CONVERT_TZ(a.spawn, '+00:00', @@global.time_zone)) as spawn, a.pokemon_id, a.move_1, a.move_2, UNIX_TIMESTAMP(CONVERT_TZ(a.last_scanned, '+00:00', @@global.time_zone)) as last_scanned, b.name, a.level, a.cp, c.latitude, c.longitude FROM raid a INNER JOIN gymdetails b INNER JOIN gym c ON a.gym_id = b.gym_id AND a.gym_id = c.gym_id  AND a.end > UTC_TIMESTAMP() ORDER BY a.end ASC";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -73,9 +75,13 @@ function getRaids()
 			if (empty($row->pokemon_id)){
 				$row->sprite = 'images/egg_' . $row->level . '.png';
 				$row->bossname = 'Egg not hatched';
+				$row->move_1 = '';
+				$row->move_2 = '';	
 			} else {
 				$row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
 				$row->bossname = $mon_name[$row->pokemon_id]['name'];
+				$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';
+				$row->move_2 = $raid_move_2[$row->move_2]['name'];			
 			}
             $raids[] = $row;
         }
