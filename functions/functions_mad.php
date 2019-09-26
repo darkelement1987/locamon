@@ -72,7 +72,7 @@ function getRaids()
 			if (empty($row->pokemon_id)){
 				$row->sprite = 'images/egg_' + $row->level + '.png';
 			} else {
-				$row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 0, 3, STR_PAD_LEFT) . '_00.png';
+				$row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
 			}
             $raids[] = $row;
         }
