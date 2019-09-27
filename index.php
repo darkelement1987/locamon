@@ -29,8 +29,8 @@ if (!empty($_GET['page'])) {
     </div>
     <!-- TEMP LINKS TO THE PAGES -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/time.js"></script> -->
-    <script src='./js/update.js'></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/time.js"></script>
+    <!-- <script src='./js/update.js'></script> -->
 
 </body>
 
