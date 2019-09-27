@@ -49,6 +49,7 @@ $raids = getRaids();
             paging: true,
             lengthChange: true,
             searching: true,
+            responsive: true,
         });
     });
 </script>
