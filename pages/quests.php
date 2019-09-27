@@ -3,12 +3,12 @@ require '../config/config.php';
 switch ($type) {
     case "rdm":
         include '../config/functions_rdm.php';
-		break;
+        break;
     case "mad":
         include '../config/functions_mad.php';
-		break;
-	default:
-	include '../config/functions_mad.php';
+        break;
+    default:
+    include '../config/functions_mad.php';
     }
         ?>
 <!DOCTYPE html>

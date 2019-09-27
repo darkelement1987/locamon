@@ -39,11 +39,11 @@ $raids = getRaids();
         $('#raid_table').DataTable({
             order: [
                 [6, "desc"]
-				],
+                ],
 
             columnDefs: [
             { type: 'time-uni', targets: 5 },
-			{ type: 'time-uni', targets: 6 }
+            { type: 'time-uni', targets: 6 }
             ],
 
             paging: true,
