@@ -47,6 +47,18 @@ function getMons()
                     break;
             }
 
+            // Detect Level
+            if (empty($row->cp_multiplier)){
+                $row->level='-';
+                } else {
+                    if ($row->cp_multiplier < 0.73) {
+                        $level = 58.35178527 * $row->cp_multiplier * $row->cp_multiplier - 2.838007664 * $row->cp_multiplier + 0.8539209906;
+                        } elseif ($row->cp_multiplier > 0.73) {
+                            $row->level = 171.0112688 * $row->cp_multiplier - 95.20425243;
+                            }
+                            $row->level = (round($level)*2)/2;
+                            }
+
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
@@ -105,8 +117,20 @@ function getDitto()
                 default:
                     $row->gender = '-';
                     break;
-            }            
-            
+            }
+
+            // Detect Level
+            if (empty($row->cp_multiplier)){
+                $row->level='-';
+                } else {
+                    if ($row->cp_multiplier < 0.73) {
+                        $level = 58.35178527 * $row->cp_multiplier * $row->cp_multiplier - 2.838007664 * $row->cp_multiplier + 0.8539209906;
+                        } elseif ($row->cp_multiplier > 0.73) {
+                            $row->level = 171.0112688 * $row->cp_multiplier - 95.20425243;
+                            }
+                            $row->level = (round($level)*2)/2;
+                            }
+
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
