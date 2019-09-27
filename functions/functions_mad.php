@@ -27,7 +27,11 @@ function getMons()
                 $row->catch_prob_1 = '-';
                 $row->catch_prob_2 = '';
                 $row->catch_prob_3 = '';
+                $row->individual_attack = '-';
+                $row->individual_defense = '-';
+                $row->individual_stamina = '-';
             }
+
             // Detect Gender
             switch ($row->gender) {
                 case '0':
@@ -100,7 +104,12 @@ function getDitto()
                 $row->catch_prob_1 = '-';
                 $row->catch_prob_2 = '';
                 $row->catch_prob_3 = '';
+                $row->individual_attack = '-';
+                $row->individual_defense = '-';
+                $row->individual_stamina = '-';
             }
+
+            // Detect Gender
             switch ($row->gender) {
                 case '0':
                     $row->gender = '-';
