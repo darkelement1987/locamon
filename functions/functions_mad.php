@@ -9,7 +9,7 @@ function getMons()
     if (empty($monsters)){
         $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE disappear_time > utc_timestamp();";
     } else {
-        $sql = "SELECT cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . $monsters . ") AND disappear_time > utc_timestamp();";
+        $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . $monsters . ") AND disappear_time > utc_timestamp();";
         }
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
@@ -44,7 +44,7 @@ function getDitto()
     global $assetRepo;
     $mons = [];
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
-    $sql = "SELECT cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (132) AND disappear_time > utc_timestamp();";
+    $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (132) AND disappear_time > utc_timestamp();";
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
