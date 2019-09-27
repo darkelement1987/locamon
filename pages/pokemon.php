@@ -10,6 +10,11 @@ global $clock;
             <th>IV:</th>
             <th>CP:</th>
             <th>Level:</th>
+            <th>Gender:</th>
+            <th>Form:</th>
+            <th>Att:</th>
+            <th>Def:</th>
+            <th>Sta:</th>
             <th>Catch Rate:</th>
             <th>Disappears:</th>
             <th>Scanned:</th>
@@ -35,6 +40,11 @@ global $clock;
                     <td><?= $row->iv ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= $level ?></td>
+                    <td><?= $row->gender ?></td>
+                    <td><?= $row->form ?></td>
+                    <td><?= $row->individual_attack ?></td>
+                    <td><?= $row->individual_defense ?></td>
+                    <td><?= $row->individual_stamina ?></td>
                     <td><?= $row->catch_prob_1 ?><?= $row->catch_prob_2 ?><?= $row->catch_prob_3 ?></td>
                     <td><?= date($clock, $row->disappear_time) ?></td>
                     <td><?= date($clock, $row->last_modified) ?></td>
@@ -49,12 +59,12 @@ global $clock;
     $(document).ready(function() {
         $('#mon_table').DataTable({
             order: [
-                [6, "desc"]
+                [11, "desc"]
                 ],
 
             columnDefs: [
-            { type: 'time-uni', targets: 5 },
-            { type: 'time-uni', targets: 6 }
+            { type: 'time-uni', targets: 10 },
+            { type: 'time-uni', targets: 11 }
             ],
 
             paging: true,

@@ -7,9 +7,9 @@ function getMons()
     $mons = [];
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
     if (empty($monsters)){
-        $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE disappear_time > utc_timestamp();";
+        $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE disappear_time > utc_timestamp();";
     } else {
-        $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . $monsters . ") AND disappear_time > utc_timestamp();";
+        $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . $monsters . ") AND disappear_time > utc_timestamp();";
         }
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
@@ -28,8 +28,35 @@ function getMons()
                 $row->catch_prob_2 = '';
                 $row->catch_prob_3 = '';
             }
+            // Detect Gender
+            switch ($row->gender) {
+                case '0':
+                    $row->gender = 'Not Set';
+                    break;
+                case '1':
+                    $row->gender = 'Male';
+                    break;
+                case '2':
+                    $row->gender = 'Female';
+                    break;
+                case '3':
+                    $row->gender = 'Genderless';
+                    break;
+                default:
+                    $row->gender = '-';
+                    break;
+            }
+
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
+
+            // Detect Form
+            if (empty($row->form)){
+                $row->form='-';
+                } else {
+                    $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
+                    }
+
             $mons[] = $row;
         }
         return $mons;
@@ -44,7 +71,7 @@ function getDitto()
     global $assetRepo;
     $mons = [];
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
-    $sql = "SELECT catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (132) AND disappear_time > utc_timestamp();";
+    $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (132) AND disappear_time > utc_timestamp();";
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
@@ -62,8 +89,34 @@ function getDitto()
                 $row->catch_prob_2 = '';
                 $row->catch_prob_3 = '';
             }
+            switch ($row->gender) {
+                case '0':
+                    $row->gender = '-';
+                    break;
+                case '1':
+                    $row->gender = 'Male';
+                    break;
+                case '2':
+                    $row->gender = 'Female';
+                    break;
+                case '3':
+                    $row->gender = '-';
+                    break;
+                default:
+                    $row->gender = '-';
+                    break;
+            }            
+            
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
+
+            // Detect Form
+            if (empty($row->form)){
+                $row->form='-';
+                } else {
+                    $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
+                    }
+
             $mons[] = $row;
         }
         return $mons;
