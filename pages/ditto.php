@@ -65,11 +65,11 @@ global $clock;
             
             language: {
                 "search":         "Search:",
-                "info":           "Showing _START_ to _END_ of _TOTAL_ Raids",
-                "infoEmpty":      "Showing 0 to 0 of 0 Raids",
-                "infoFiltered":   "(filtered from _MAX_ total Raids)",
+                "info":           "Showing _START_ to _END_ of _TOTAL_ Ditto",
+                "infoEmpty":      "Showing 0 to 0 of 0 Ditto",
+                "infoFiltered":   "(filtered from _MAX_ total Ditto)",
                 "emptyTable":     "No Ditto available",
-                "zeroRecords":    "No matching Raids found",
+                "zeroRecords":    "No matching Ditto found",
                 searchPlaceholder: "Enter name/id"
                 }
             
