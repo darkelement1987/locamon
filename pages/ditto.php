@@ -60,7 +60,7 @@ global $clock;
 
             paging: true,
             lengthChange: false,
-            searching: false,
+            searching: true,
             responsive: true,
             
             language: {
