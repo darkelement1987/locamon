@@ -1,5 +1,5 @@
 <?php
-$mons = getMons();
+$mons = getShiny();
 global $clock;
 ?>
 
