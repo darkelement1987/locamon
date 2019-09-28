@@ -6,7 +6,7 @@ global $clock;
 <table id="mon_table" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th style="display:none;">ID:</th>
+            <th>ID:</th>
             <th>Pokemon:</th>
             <th>IV:</th>
             <th>CP:</th>
@@ -27,7 +27,7 @@ global $clock;
             foreach ($mons as $row) {
                 ?>
                 <tr>
-                    <td style="display:none;"><?= str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) ?></td>
+                    <td><?= $row->id ?></td>
                     <td><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
                     <td><?= $row->iv ?></td>
                     <td><?= $row->cp ?></td>
@@ -56,20 +56,20 @@ global $clock;
             columnDefs: [
             { type: 'time-uni', targets: 11 },
             { type: 'time-uni', targets: 12 },
-            { targets: 0, visible:false }
             ],
 
             paging: true,
-            lengthChange: true,
+            lengthChange: false,
             searching: true,
             responsive: true,
-            "lengthChange": false,
             
             language: {
                 "search":         "Search:",
                 "info":           "Showing _START_ to _END_ of _TOTAL_ Pokémon",
                 "infoEmpty":      "Showing 0 to 0 of 0 Pokémon",
                 "infoFiltered":   "(filtered from _MAX_ total Pokémon)",
+                "emptyTable":     "No Pokémon available in table",
+                "zeroRecords":    "No matching Pokémon found",
                 searchPlaceholder: "Enter name/id"
                 }
             

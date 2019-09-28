@@ -12,15 +12,21 @@ function getMons()
         $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . $monsters . ") AND disappear_time > utc_timestamp();";
         }
     $result = $conn->query($sql);
+
     // Check if mon available
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
+
+            // Pull Mon ID
+            $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
+
             // Check if mon has stats
             if ($row->individual_attack !== null && $row->individual_defense !== null &&  $row->individual_stamina !== null) {
                 $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2) . '%';
                 $row->catch_prob_1 = '<img height=\'42\' width=\'42\' src=\'images/poke.png\'>' . round(($row->catch_prob_1) * 100,1) . '% / ';
                 $row->catch_prob_2 = '<img height=\'42\' width=\'42\' src=\'images/great.png\'>' . round(($row->catch_prob_2) * 100,1) . '% / ';
                 $row->catch_prob_3 = '<img height=\'42\' width=\'42\' src=\'images/ultra.png\'>' . round(($row->catch_prob_3) * 100,1) . '%';
+
             // If no stats show -
             } else {
                 $row->iv = '-';
@@ -77,9 +83,6 @@ function getMons()
             $mons[] = $row;
         }
         return $mons;
-    // If no mon available show msg none available
-    } else {
-        return '<tr><td colspan="6" class="text-center"> No Pokemon At This Time</td></tr>';
     }
 }
 
@@ -91,15 +94,21 @@ function getDitto()
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
     $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (132) AND disappear_time > utc_timestamp();";
     $result = $conn->query($sql);
+
     // Check if mon available
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
+
+            // Pull Mon ID
+            $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
+
             // Check if mon has stats
             if ($row->individual_attack !== null && $row->individual_defense !== null &&  $row->individual_stamina !== null) {
                 $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2) . '%';
                 $row->catch_prob_1 = '<img height=\'42\' width=\'42\' src=\'images/poke.png\'>' . round(($row->catch_prob_1) * 100,1) . '% / ';
                 $row->catch_prob_2 = '<img height=\'42\' width=\'42\' src=\'images/great.png\'>' . round(($row->catch_prob_2) * 100,1) . '% / ';
                 $row->catch_prob_3 = '<img height=\'42\' width=\'42\' src=\'images/ultra.png\'>' . round(($row->catch_prob_3) * 100,1) . '%';
+
             // If no stats show -
             } else {
                 $row->iv = '-';
@@ -156,9 +165,6 @@ function getDitto()
             $mons[] = $row;
         }
         return $mons;
-    // If no Ditto available show msg none available
-    } else {
-        return '<tr><td colspan="6" class="text-center"> No Ditto At This Time</td></tr>';
     }
 }
 
@@ -183,20 +189,20 @@ function getRaids()
                 $row->sprite = 'images/egg_' . $row->level . '.png';
                 $row->bossname = 'Egg not hatched';
                 $row->move_1 = '-';
-                $row->move_2 = '';                
-                $row->cp = '-';                
+                $row->move_2 = '';
+                $row->cp = '-';
+                $row->id = '#???';
             // Else it's a raid :-)
             } else {
                 $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
                 $row->bossname = $mon_name[$row->pokemon_id]['name'];
-                $row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';
-                $row->move_2 = $raid_move_2[$row->move_2]['name'];            
+                if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
+                if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
+                $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
             }
             $raids[] = $row;
         }
         return $raids;
-    } else {
-        return '<tr><td colspan="6" class="text-center"> No Raids At This Time</td></tr>';
     }
 }
 
@@ -209,15 +215,21 @@ function getShiny()
     $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
     $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE pokemon_id in (" . getShinyList() . ") AND disappear_time > utc_timestamp();";
     $result = $conn->query($sql);
+
     // Check if mon available
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
+
+            // Pull Mon ID
+            $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
+
             // Check if mon has stats
             if ($row->individual_attack !== null && $row->individual_defense !== null &&  $row->individual_stamina !== null) {
                 $row->iv = round((($row->individual_attack + $row->individual_defense + $row->individual_stamina) / 45) * 100, 2) . '%';
                 $row->catch_prob_1 = '<img height=\'42\' width=\'42\' src=\'images/poke.png\'>' . round(($row->catch_prob_1) * 100,1) . '% / ';
                 $row->catch_prob_2 = '<img height=\'42\' width=\'42\' src=\'images/great.png\'>' . round(($row->catch_prob_2) * 100,1) . '% / ';
                 $row->catch_prob_3 = '<img height=\'42\' width=\'42\' src=\'images/ultra.png\'>' . round(($row->catch_prob_3) * 100,1) . '%';
+
             // If no stats show -
             } else {
                 $row->iv = '-';
@@ -274,9 +286,6 @@ function getShiny()
             $mons[] = $row;
         }
         return $mons;
-    // If no mon available show msg none available
-    } else {
-        return '<tr><td colspan="6" class="text-center"> No Pokemon At This Time</td></tr>';
     }
 }
 
