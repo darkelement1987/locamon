@@ -50,12 +50,12 @@ global $clock;
     $(document).ready(function() {
         $('#mon_table').DataTable({
             order: [
-                [11, "desc"]
+                [12, "desc"]
                 ],
 
             columnDefs: [
-            { type: 'time-uni', targets: 10 },
             { type: 'time-uni', targets: 11 },
+            { type: 'time-uni', targets: 12 },
             { targets: 0, visible:false }
             ],
 
