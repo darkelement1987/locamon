@@ -10,7 +10,10 @@ $type = "mad"; // 'mad' or 'rdm', default = mad
 // Frontend
 
 $title = "Locamon";
-$clock = ""; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
+$map_link = ''; // Url to you mapping frontend
+$map_key = ''; // "Mapquest api key (free version, this uses the open.maps.api)"
+
+$update = '15';  //time in seconds for page updates
 
 // Images
 

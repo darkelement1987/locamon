@@ -1,5 +1,5 @@
 <?php
-include './config/config.php';
+require_once __DIR__ . '/config/config.php';
 define('DIRECTORY', __Dir__);
 
 // Create connection
@@ -12,10 +12,10 @@ if ($conn->connect_error) {
 
 switch ($type) {
     case 'rdm':
-        include './functions/functions_rdm.php';
+        require_once __DIR__ . '/functions/functions_rdm.php';
         break;
     default:
-        include './functions/functions_mad.php';
+        require_once __DIR__ . '/functions/functions_mad.php';
         break;
 }
 
