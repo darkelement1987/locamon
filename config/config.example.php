@@ -8,7 +8,7 @@ $database = "";
 $type = "mad"; // 'mad' or 'rdm', default = mad
 
 // Frontend
-
+$clock = 12; // 12/24 default 12
 $title = "Locamon";
 $map_link = ''; // Url to you mapping frontend
 $map_key = ''; // "Mapquest api key (free version, this uses the open.maps.api)"

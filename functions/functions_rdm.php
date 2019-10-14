@@ -4,6 +4,7 @@ function getMons($u = null)
     global $conn;
     global $assetRepo;
     global $mapkey;
+    global $clock;
 
     $mons = [];
     $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'),true);
@@ -40,8 +41,8 @@ SQL;
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
 
-            $row->disappear_time = date('g:i:s', $row->expires);
-            $row->last_modified = date('g:i:s', $row->updated);
+            $row->disappear_time = date($clock, $row->expires);
+            $row->last_modified = date($clock, $row->updated);
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, '0', STR_PAD_LEFT) . '_' . str_pad($row->form, 2, '0', STR_PAD_LEFT) . '.png';
             $row->name = $pokedex[$row->pokemon_id]['name'];
             $row->types = $pokedex[$row->pokemon_id]['types'];
@@ -72,6 +73,8 @@ function getRaids($u = null)
     global $conn;
     global $assetRepo;
     global $mapkey;
+    global $clock;
+    
     $raids = [];
     $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'));
     $key = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'));   
@@ -107,10 +110,10 @@ SQL;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            $row->time_start = date('g:i:s', $row->start);
-            $row->time_spawn = date('g:i:s', $row->spawn);
-            $row->time_end = date('g:i:s', $row->end);
-            $row->raid_scan_time = date('g:i:s', $row->last_scanned);
+            $row->time_start = date($clock, $row->start);
+            $row->time_spawn = date($clock, $row->spawn);
+            $row->time_end = date($clock, $row->end);
+            $row->raid_scan_time = date($clock, $row->last_scanned);
             $row->stars = str_repeat('★', $row->level);
             if ($row->gym_name === null) {
                 $row->gym_name = 'Link';
