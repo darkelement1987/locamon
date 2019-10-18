@@ -34,7 +34,7 @@ function getMons($u = null)
         pokemon.catch_prob_2,
         pokemon.catch_prob_3
     FROM pokemon 
-    WHERE pokemon.disappear_time > utc_timestamp();
+    WHERE pokemon.disappear_time > utc_timestamp()
 SQL;
     if (!empty($u)) {
         $sql = $sql . ' AND pokemon.last_modified > DATE_SUB(UTC_TIMESTAMP(), INTERVAL ' . $u . ' SECOND)';
@@ -46,7 +46,7 @@ SQL;
                 $row->iv = round((($row->atk_iv + $row->def_iv + $row->sta_iv) / 45) * 100, 2);
             } else {
                 $row->iv = '-';
-				$row->cp = '-';
+                $row->cp = '-';
             }
             if (empty($row->cp_multiplier)) {
                 $row->level = '-';
@@ -59,8 +59,8 @@ SQL;
                 $row->level = (round($level) * 2) / 2;
             }
             if (!empty($row->move_1) && !empty($row->move_2)) {
-            $row->move_1 = $moves->{$row->move_1};
-            $row->move_2 = $moves->{$row->move_2};
+                $row->move_1 = $moves->{$row->move_1};
+                $row->move_2 = $moves->{$row->move_2};
             }
             $row->disappear_time = date($clock, $row->expires);
             $row->last_modified = date($clock, $row->updated);
@@ -78,6 +78,7 @@ SQL;
             $mons[] = $row;
         }
     }
+    return $mons;
 }
 
 function getRaids($u = null)
@@ -88,8 +89,8 @@ function getRaids($u = null)
     global $clock;
     $raids = [];
     $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'));
-    $key = json_decode(file_get_contents(DIRECTORY . '/json/pokemon.json'));
     $moves = json_decode(file_get_contents(DIRECTORY . '/json/moves.json'));
+    $forms = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'));
     $sql = <<<SQL
         SELECT 
             c.gym_id as id,
@@ -121,13 +122,11 @@ SQL;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            if (!empty($row->form)) {
-                $row->form = $key->forms->{$row->form};
-            }
+
             if (!empty($row->move_1) && !empty($row->move_2)) {
                 $row->move_1 = $moves->{$row->move_1};
                 $row->move_2 = $moves->{$row->move_2};
-                }
+            }
             $row->time_start = date($clock, $row->start);
             $row->time_spawn = date($clock, $row->spawn);
             $row->time_end = date($clock, $row->end);
@@ -146,6 +145,9 @@ SQL;
                 $id = '0';
                 $row->sprite = 'images/egg_' . $row->level . '.png';
                 $row->name = 'Egg';
+            }
+            if (!empty($row->form)) {
+                $row->form = $forms->forms->{$row->form};
             }
             $row->static_map = '';
             if ($mapkey !== '') {
