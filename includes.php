@@ -37,6 +37,8 @@ function index()
         $page = $_GET['page'];
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
+        } else if (file_exists(DIRECTORY . '/pages/' . $page . '.html')) {
+            require_once(DIRECTORY  . '/pages/' . $page . '.html');
         } else {
             echo "Does not exist";
         }

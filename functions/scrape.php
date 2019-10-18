@@ -17,7 +17,6 @@ function processor()
             "types":{},
             "forms":{}            
         },
-        "moves":{},
         "quests":{
             "rewards":{},
             "quests":{},
@@ -56,7 +55,6 @@ JSON;
 
                 break;
             case 'move':
-                $base->moves->$id = $v;
                 break;
             case 'form':
                 $base->keys->forms->$id = $v;
@@ -95,7 +93,12 @@ JSON;
     return $base;
 }
 
-
+$moves = file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/moves.json');
+$moves = json_decode($moves);
+$move = new stdClass();
+foreach ($moves as $k => $v) {
+    $move->$k = $v->name;
+}
 
 $pokedex = file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json');
 $pokedex = json_decode($pokedex);
@@ -112,7 +115,7 @@ $base = processor();
 
 
 file_put_contents('./../json/pokedex.json', json_encode($pokemon));
-file_put_contents('./../json/moves.json', json_encode($base->moves));
+file_put_contents('./../json/moves.json', json_encode($move));
 file_put_contents('./../json/items.json', json_encode($base->items));
 file_put_contents('./../json/quests.json', json_encode($base->quests));
 file_put_contents('./../json/invasions.json', json_encode($base->invasions));
