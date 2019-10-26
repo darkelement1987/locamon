@@ -7,10 +7,10 @@ function getMons($u = null)
     global $clock;
 
     $mons = [];
-    $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'),true);
-    $key = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'),true);
+    $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
+    $key = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'), true);
     $moves = json_decode(file_get_contents(DIRECTORY . '/json/moves.json'), true);
-$sql = <<<SQL
+    $sql = <<<SQL
         SELECT id, 
                lat, 
                lon, 
@@ -46,13 +46,13 @@ SQL;
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, '0', STR_PAD_LEFT) . '_' . str_pad($row->form, 2, '0', STR_PAD_LEFT) . '.png';
             $row->name = $pokedex[$row->pokemon_id]['name'];
             $row->types = $pokedex[$row->pokemon_id]['types'];
-            if(!empty($row->iv)) {
+            if (!empty($row->iv)) {
                 $row->iv = '';
             }
             if (!empty($row->move_1) && !empty($row->move_2)) {
                 $row->move_1 = $moves[$row->move_1];
                 $row->move_2 = $moves[$row->move_2];
-                }
+            }
             $row->static_map = '';
 
             if ($mapkey !== '') {
@@ -74,10 +74,10 @@ function getRaids($u = null)
     global $assetRepo;
     global $mapkey;
     global $clock;
-    
+
     $raids = [];
     $pokedex = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'));
-    $key = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'));   
+    $key = json_decode(file_get_contents(DIRECTORY . '/json/forms.json'));
     $moves = json_decode(file_get_contents(DIRECTORY . '/json/moves.json'));
     $sql = <<<SQL
         SELECT
@@ -108,7 +108,7 @@ SQL;
         $sql = $sql . ' AND last_modified_timestamp > DATE_SUB(UNIX_TIMESTAMP(NOW()), INTERVAL ' . $u . ' SECOND)';
     }
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
             $row->time_start = date($clock, $row->start);
             $row->time_spawn = date($clock, $row->spawn);
@@ -129,7 +129,7 @@ SQL;
             if (!empty($row->move_1) && !empty($row->move_2)) {
                 $row->move_1 = $moves->{$row->move_1};
                 $row->move_2 = $moves->{$row->move_2};
-                }
+            }
             $row->static_map = '';
             if ($mapkey !== '') {
                 $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=400,200&zoom=16&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $row->pokemon_id . '.png&key=' . $mapkey;

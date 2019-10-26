@@ -1,12 +1,11 @@
-$(document).ready(function() {
-    let page = getParameterByName('page');
+function update(page) {
     if (page !== '') {
         countdown();
         setInterval(function() {
             update(page);
         }, updateTime * 1000);
     }
-});
+}
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;

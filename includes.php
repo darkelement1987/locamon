@@ -1,7 +1,18 @@
 <?php
 require_once __DIR__ . '/config/config.php';
 define('DIRECTORY', __Dir__);
-
+if (isset($_GET) && !empty($_GET)) {
+    $get = new stdClass();
+    foreach ($_GET as $k => $v) {
+        $get->$k = htmlspecialchars($v);
+    }
+}
+if (isset($_POST) && !empty($_POST)) {
+    $post = new stdClass();
+    foreach ($_POST as $k => $v) {
+        $post->$k = htmlspecialchars($v);
+    }
+}
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -33,14 +44,25 @@ switch ($clock) {
 
 function index()
 {
-    if (isset($_GET['page']) && !empty($_GET['page'])) {
-        $page = $_GET['page'];
+    global $get;
+    if (isset($get->page) && !empty($get->page)) {
+        $page = $get->page;
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
         } else if (file_exists(DIRECTORY . '/pages/' . $page . '.html')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.html');
         } else {
             echo "Does not exist";
+        }
+    }
+}
+function js()
+{
+    global $get;
+    if (isset($get->page) && !empty($get->page)) {
+        $page = $get->page;
+        if (file_exists(DIRECTORY . '/js/' . $page . '.js')) {
+            require_once(DIRECTORY  . '/js/' . $page . '.js');
         }
     }
 }

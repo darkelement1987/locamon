@@ -32,7 +32,8 @@ function getMons($u = null)
         pokemon.costume,
         pokemon.catch_prob_1,
         pokemon.catch_prob_2,
-        pokemon.catch_prob_3
+        pokemon.catch_prob_3,
+        pokemon.weather_boosted_condition
     FROM pokemon 
     WHERE pokemon.disappear_time > utc_timestamp()
 SQL;
@@ -45,11 +46,11 @@ SQL;
             if ($row->atk_iv !== null && $row->def_iv !== null &&  $row->sta_iv !== null) {
                 $row->iv = round((($row->atk_iv + $row->def_iv + $row->sta_iv) / 45) * 100, 2);
             } else {
-                $row->iv = '-';
-                $row->cp = '-';
+                $row->iv = '';
+                $row->cp = '';
             }
             if (empty($row->cp_multiplier)) {
-                $row->level = '-';
+                $row->level = '';
             } else {
                 if ($row->cp_multiplier < 0.73) {
                     $level = 58.35178527 * $row->cp_multiplier * $row->cp_multiplier - 2.838007664 * $row->cp_multiplier + 0.8539209906;
@@ -117,10 +118,10 @@ function getRaids($u = null)
         WHERE a.end > utc_timestamp()
 SQL;
     if (!empty($u)) {
-        $sql = $sql . ' a.last_scanned > DATE_SUB(UTC_TIMESTAMP(), INTERVAL ' . $u . ' SECOND)';
+        $sql = $sql . 'AND a.last_scanned > DATE_SUB(UTC_TIMESTAMP(), INTERVAL ' . $u . ' SECOND)';
     }
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
 
             if (!empty($row->move_1) && !empty($row->move_2)) {

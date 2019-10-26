@@ -3,7 +3,7 @@ ini_set("allow_url_fopen", 1);
 $locale = 'en'; // ['en', 'de', 'it']
 $max_pokemon = 649;
 
-$rdm = 'https://manassasgo.com'; //link to hosted rdm map
+$rdm = ''; //link to hosted rdm map
 
 // dont touch after this
 function processor()

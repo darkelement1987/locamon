@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../includes.php');
-$type = $_GET['type'];
-if (!empty($_GET['update'])) {
+$type = $get->type;
+if (!empty($get->update)) {
     $api_update = '1';
 } else {
     $api_update = null;

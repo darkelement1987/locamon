@@ -1,219 +1,156 @@
+<!--Pokemon datatable-->
 <table id="mon_table" class="table table-striped table-bordered" style="width:100%">
     <tbody> </tbody>
 </table>
-<script>
-    var monTable;
-    $(document).ready(function() {
-        monTable = $('#mon_table').DataTable({
-            order: [
-                [2, "asc"]
-            ],
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            processing: true,
-            ajax: {
-                url: './functions/api.php?type=pokemon',
-                dataSrc: 'data'
-            },
-            ordering: true,
-            lengthChange: true,
-            rowId: 'id',
-            columns: [{
-                "title": "Pokemon",
-                "type": "string",
-                "data": null,
-                "createdCell": function(td, cellData, rowData, row, col) {
-                    let gradient;
-                    if (rowData.types.length === 1) {
-                        gradient = '60deg, ' + rowData.types[0].color + ', transparent 50%';
-                    } else if (rowData.types.length === 2) {
-                        gradient = '60deg, ' + rowData.types[0].color + ', ' + rowData
-                            .types[1].color + ' 30%, transparent 60%';
-                    }
-                    $(td).css('background', 'linear-gradient(' + gradient + ')');
-                },
-                "render": {
-                    display: function(data, type, row) {
-                        if (row.form !== '0' && row.form !== 'Normal') {
-                            row.name = row.form + ' ' + row.name;
-                        }
-                        return `<img class="img-fluid" src="${row.sprite}" /><strong>${row.name}</strong></td>`;
-                    },
-                    sort: "name",
-                    _: "name",
-                    filter: "name"
-                },
-                "className": "all"
-            }, {
-                "title": "Link",
-                "data": null,
-                "render": {
-                    display: function(data, type, row) {
-                        return `<a href="${mapLink}?lat=${row.lat}&?lon=${row.lon}">Maps</a>`;
-                    }
-                },
-                "searchable": false,
-                "orderable": false,
-                "classname": "all"
-            }, {
-                "title": "Disappears",
-                "data": null,
-                "type": "date",
-                "render": {
-                    display: function(data, type, row) {
-                        return `<div><strong>${row.disappear_time}</strong></div><div class="countdown" data-timestamp="${row.expires}"></div>`;
-                    },
-                    sort: "expires",
-                    _: "disappear_time",
-                    filter: "expires"
-                },
-                "classname": "all"
-            }, {
-                "title": "Updated",
-                "data": null,
-                "type": "date",
-                "render": {
-                    display: "last_modified",
-                    sort: "updated",
-                    _: "last_modified",
-                    filter: "updated"
-                }
-            }, {
-                "title": "Encountered",
-                "type": "num",
-                "data": null,
-                "render": {
-                    display: function(data, type, row) {
-                        if (row.iv !== '' && row.iv !== null) {
-                            return `${row.iv}%  <i class="far fa-check-square fa-2x showIv text-success"></i>`;
-                        } else {
-                            return '<i class="far fa-times-circle fa-2x"></i>';
-                        }
-                    },
-                    filter: function(data, type, row) {
-                        if (row.iv !== '' && row.iv !== null) {
-                            return row.iv;
-                        } else {
-                            return '0';
-                        }
-                    },
-                    sort: function(data, type, row) {
-                        if (row.iv === '' || row.iv === null) {
-                            return 0;
-                        } else {
-                            return row.iv;
-                        }
-                    }
-                },
-                "searchable": false
-            }]
-        });
-        monTable.on('draw', countdown('mon'));
-
-        $('#mon_table').on('click', '.showIv', function() {
-            var tr = $(this).closest('tr');
-            var row = monTable.row(tr);
-
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                // Open this row (the format() function would return the data to be shown)
-                if (row.child() && row.child().length) {
-                    row.child.show();
-                } else {
-                    row.child(monChild(row.data())).show();
-                }
-                tr.addClass('shown');
-            }
-        });
-
-        function ivColors(iv) {
-            iv = parseInt(iv);
-            if (iv <= 6) {
-                return '#ff0000';
-            } else if (iv > 6 && iv <= 11) {
-                return '#fada5e'
-            } else if (iv > 11) {
-                return '#00ff00';
-            }
-        }
-
-        function monChild(data) {
-            let formLine;
-            if (data.static_map !== '') {
-                let image = data.static_map;
-            }
-            let atk_color = ivColors(data.atk_iv);
-            let sta_color = ivColors(data.sta_iv);
-            let def_color = ivColors(data.def_iv);
-            if (data.form !== '0' && data.form !== "Normal") {
-                formLine = `<li><strong>Form - </strong>${data.form}</li>`
-            } else {
-                formLine = '';
-            }
-            const row = `
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="text-left"><span style="text-decoration: underline;">Stats</span></h5>
-                    <hr />
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-3 d-flex justify-content-center">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td><strong>IV - ${data.iv}</strong></td>
-                                                    <td class="d-flex bg-secondary text-light">
-                                                        <i class="fas fa-fist-raised fa-lg"></i><span style="color:${atk_color}"> ${data.atk_iv} </span>
-                                                        <i class="fa fa-shield-alt fa-lg"></i><span style="color:${def_color}"> ${data.def_iv} </span>
-                                                        <i class="fas fa-plus-circle fa-lg">-</i><span style="color:${sta_color}"> ${data.sta_iv} </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Level - ${data.level}</strong><br /></td>
-                                                    <td><strong>CP - ${data.cp}</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+<!-- filter modal  -->
+<div class="modal pokemon-modal" id="filtersModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Filters</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card filter-card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link filter-tab active" id="level-filter-tab" data-filter="level"
+                                    data-toggle="tab" role="tab" aria-controls="levelFilter" aria-selected="true"
+                                    href="#levelFilter">
+                                    <i class="fas fa-fist-raised"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link filter-tab" id="time-filter-tab" data-toggle="tab" data-filter="time"
+                                    role="tab" aria-controls="timeFilter" aria-selected="false" href="#timeFilter">
+                                    <i class="fas fa-hourglass-half "></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link filter-tab" id="mon-filter-tab" data-toggle="tab" data-filter="mon"
+                                    role="tab" aria-controls="monFilter" aria-selected="false" href="#monFilter">
+                                    <i class="fas fa-pokeball"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link filter-tab" id="misc-filter-tab" data-toggle="tab" role="tab"
+                                    data-filter="misc" aria-controls="miscFilter" aria-selected="false"
+                                    href="#miscFilter"><i class="fa fa-star "></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div id="nav-tabContent" class="filters tab-content">
+                            <div id="levelFilter" class="tab-pane fade show active" role="tabpanel"
+                                aria-labelledby="level-filter-tab">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>Level</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
+                                        </div>
+                                        <div class="input-group d-flex">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>CP</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>IV</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4 d-flex flex-column justify-content-around">
-                                    <ul class="list-unstyled">
-                                        <li><strong>Quick Move </strong>- ${data.move_1}</li>
-                                        <li><strong>Charge Move </strong>- ${data.move_2}</li>
-                                        <li><strong>Gender - </strong>${data.gender}</li>
-                                        ${formLine}
-                                    </ul>
-                                </div>
-                                <div class="col-4">
-                                    <div class="row d-flex justify-content-center">
-                                        <img src="${data.static_map}" alt="static map" height="150"/>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-between">
-                                            <a href="http://maps.apple.com/?sll=${data.lat},${data.lon}">
-                                                <img class="img-fluid" width="40" height="40" src="./images/AppleMaps_logo.svg" />
-                                            </a>
-                                            <a href="$google_dir = "https://www.google.com/maps/dir/?api=1&destination=${data.lat},${data.lon}">
-                                                <img class="img-fluid" src="./images/GoogleMaps_logo.svg" width="40" height="40" />
-                                            </a>
-                                            <a href="https://www.waze.com/ul?ll=${data.lat}%2C${data.lon}&navigate=yes">
-                                                <img class="img-fluid" src="./images/Waze_logo.svg" width="40" height="40" />
-                                            </a>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>ATK</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>DEF</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><strong>STA</strong>
+                                                </span>
+                                            </div><input type="text" class="form-control" name="level"
+                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
+                                                class="form-control" name="level" inputmode="numeric"
+                                                pattern="[0-3][0-9]" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div id="timeFilter" class="tab-pane fade" role="tabpanel"
+                                aria-labelledby="time-filter-tab">
+                                <h5><u>Time Remaining</u></h5>
+                                <div class="time-slider">
+                                    <input id="timeselect" type="range" list="time-list" name="time-left" min="0"
+                                        max="45" step="1" class="rounded custom-range time-slider" /><span
+                                        class="time-value"></span>
+                                </div>
+                            </div>
+                            <div id="monFilter" class="tab-pane fade" role="tabpanel" aria-labelledby="mon-filter-tab">
+                                <h5><u>Pokemon</u></h5>
+                                <select id="monSelect" name="mon-select[]" multiple="multiple"
+                                    class="select2 mon-select">
+                                </select>
+                            </div>
+                            <div id="miscFilter" class="tab-pane fade" role="tabpanel"
+                                aria-labelledby="misc-filter-tab">
+                                <h5><u>Misc</u></h5>
+                                <div class="text-dark d-flex justify-content-around">
+                                    <div class="d-flex align-items-center">
+                                        <span><strong>Ex-Only </strong></span>
+                                        <div class="switch">
+                                            <input type="checkbox" id="exFilter" />
+                                            <label for="exFilter">Toggle</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="align-self-center">
+                                            <strong>Shiny </strong>
+                                        </span>
+                                        <div class="switch">
+                                            <input type="checkbox" id="shinyFilter" />
+                                            <label for="shinyFilter">Toggle</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <small>
+                                       *for eligible
+                                    gyms, not garunteed</small>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>`;
-            return row;
-        }
-    });
-</script>
+            </div>
+        </div>
+    </div>
+</div>
