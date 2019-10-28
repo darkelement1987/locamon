@@ -48,8 +48,11 @@ if (!empty($get->page)) {
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.full.min.js'></script>
+
     <script src='./js/functions.js'></script>
-    <?= js() ?>
+    <script>
+        <?= js() ?>
+    </script>
 
 
 </body>

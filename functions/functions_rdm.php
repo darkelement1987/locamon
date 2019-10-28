@@ -31,10 +31,10 @@ function getMons($u = null)
                costume, 
                iv
             FROM pokemon 
-            WHERE expire_timestamp > unix_timestamp()
+            WHERE expire_timestamp > unix_timestamp(now())
 SQL;
     if (!empty($u)) {
-        $sql = $sql . ' AND updated > DATE_SUB(UNIX_TIMESTAMP(NOW()), INTERVAL ' . $u . ' SECOND)';
+        $sql = $sql . ' AND updated > DATE_SUB(UNIX_TIMESTAMP(), INTERVAL ' . $u . ' SECOND)';
     }
     $result = $conn->query($sql);
 
@@ -46,7 +46,7 @@ SQL;
             $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, '0', STR_PAD_LEFT) . '_' . str_pad($row->form, 2, '0', STR_PAD_LEFT) . '.png';
             $row->name = $pokedex[$row->pokemon_id]['name'];
             $row->types = $pokedex[$row->pokemon_id]['types'];
-            if (!empty($row->iv)) {
+            if (empty($row->iv)) {
                 $row->iv = '';
             }
             if (!empty($row->move_1) && !empty($row->move_2)) {
@@ -56,7 +56,7 @@ SQL;
             $row->static_map = '';
 
             if ($mapkey !== '') {
-                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=200,200&zoom=16&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $row->pokemon_id . '.png&key=' . $mapkey;
+                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=200,200&zoom=15&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $row->pokemon_id . '.png&key=' . $mapkey;
             }
             if (!empty($row->form) || $row->form !== "0") {
                 $row->form = $key['forms'][$row->form];
@@ -132,7 +132,7 @@ SQL;
             }
             $row->static_map = '';
             if ($mapkey !== '') {
-                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=400,200&zoom=16&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $row->pokemon_id . '.png&key=' . $mapkey;
+                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=400,200&zoom=15&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $row->pokemon_id . '.png&key=' . $mapkey;
             }
             if (!empty($row->form)) {
                 $row->form = $key->forms->{$row->form};

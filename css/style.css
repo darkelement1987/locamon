@@ -1,0 +1,14 @@
+.pokemon-modal .input-group {
+    margin: 10px 0;
+}
+
+.pokemon-modal .input-group>*,
+.input-group>*>* {
+    -webkit-box-flex: 3;
+    -ms-flex: 3 3;
+    flex: 3 3;
+}
+
+.pokemon-modal .input-group-text {
+    text-decoration: underline;
+}

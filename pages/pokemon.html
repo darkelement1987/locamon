@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card filter-card">
+                <div class="card filter-card w-100 h-100">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" role="tablist">
                             <li class="nav-item">
@@ -45,34 +45,39 @@
                         <div id="nav-tabContent" class="filters tab-content">
                             <div id="levelFilter" class="tab-pane fade show active" role="tabpanel"
                                 aria-labelledby="level-filter-tab">
+                                <h4>Stats</h4>
+                                <hr />
                                 <div class="row">
                                     <div class="col">
                                         <div class="input-group">
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>Level</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="form-control levelfilter" name="levelmin"
+                                                id="levelmin" inputmode="numeric" min='0' max='35' step='1'
+                                                placeholder='Min' /><input type="number"
+                                                class="form-control levelfilter" name="levelmax" id="levelmax"
+                                                inputmode="numeric" min='0' max='35' step='1' placeholder='Max' />
                                         </div>
                                         <div class="input-group d-flex">
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>CP</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="form-control cpfilter" name="cpmin"
+                                                id="cpmin" inputmode="numeric" min='0' max='4000' step='1'
+                                                placeholder='Min' /><input type="number" class="cpfilter form-control"
+                                                name="cpmax" id="cpmax" inputmode="numeric" min='0' max='4000' step='1'
+                                                placeholder='Max' />
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>IV</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="ivfilter form-control" name="ivmin"
+                                                id="ivmin" inputmode="numeric" min='0' max='100' step='1'
+                                                placeholder='Min' /><input type="number" class="ivfilter form-control"
+                                                name="ivmax" id="ivmax" inputmode="numeric" min='0' max='100' step='1'
+                                                placeholder='Max' />
                                         </div>
                                     </div>
                                     <div class="col">
@@ -80,35 +85,40 @@
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>ATK</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="atkfilter form-control" name="atkmin"
+                                                id="atkmin" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Min' /><input type="number" class="atkfilter form-control"
+                                                name="atkmax" id="atkmax" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Max' />
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>DEF</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="deffilter form-control" name="defmin"
+                                                id="defmin" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Min' /><input type="number" class="deffilter form-control"
+                                                name="defmax" id="defmax" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Max' />
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend"><span
                                                     class="input-group-text"><strong>STA</strong>
                                                 </span>
-                                            </div><input type="text" class="form-control" name="level"
-                                                inputmode="numeric" pattern="[0-3][0-9]" /><input type="text"
-                                                class="form-control" name="level" inputmode="numeric"
-                                                pattern="[0-3][0-9]" />
+                                            </div><input type="number" class="stafilter form-control" name="stamin"
+                                                id="stamin" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Min' /><input type="number" class="stafilter form-control"
+                                                name="stamax" id="stamax" inputmode="numeric" min='0' max='15' step='1'
+                                                placeholder='Max' />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div id="timeFilter" class="tab-pane fade" role="tabpanel"
                                 aria-labelledby="time-filter-tab">
-                                <h5><u>Time Remaining</u></h5>
+                                <h4>Time Remaining</h4>
+                                <hr />
+
                                 <div class="time-slider">
                                     <input id="timeselect" type="range" list="time-list" name="time-left" min="0"
                                         max="45" step="1" class="rounded custom-range time-slider" /><span
@@ -116,38 +126,43 @@
                                 </div>
                             </div>
                             <div id="monFilter" class="tab-pane fade" role="tabpanel" aria-labelledby="mon-filter-tab">
-                                <h5><u>Pokemon</u></h5>
+                                <h4>Pokemon</h4>
+                                <hr />
                                 <select id="monSelect" name="mon-select[]" multiple="multiple"
                                     class="select2 mon-select">
                                 </select>
                             </div>
                             <div id="miscFilter" class="tab-pane fade" role="tabpanel"
                                 aria-labelledby="misc-filter-tab">
-                                <h5><u>Misc</u></h5>
-                                <div class="text-dark d-flex justify-content-around">
-                                    <div class="d-flex align-items-center">
-                                        <span><strong>Ex-Only </strong></span>
-                                        <div class="switch">
-                                            <input type="checkbox" id="exFilter" />
-                                            <label for="exFilter">Toggle</label>
+                                <h4>Forms</h4>
+                                <hr />
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <div class="border rounded-0 d-inline-block shiny-toggle"
+                                                style="width: 59px;height: 61px;"></div>
+                                            <span><strong>Shiny</strong></span>
+                                        </div>
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <div class="border rounded-0 d-inline-block shiny-toggle"
+                                                style="width: 59px;height: 61px;"></div>
+                                            <span><strong>Alolan</strong></span>
                                         </div>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <span class="align-self-center">
-                                            <strong>Shiny </strong>
-                                        </span>
-                                        <div class="switch">
-                                            <input type="checkbox" id="shinyFilter" />
-                                            <label for="shinyFilter">Toggle</label>
-                                        </div>
+                                    <div class="col d-flex other-forms flex-column justify-content-center">
+                                        <h4>Other Forms</h4>
+                                        <hr />
+                                        <select id="formSelect" name="form-select[]" multiple="multiple"
+                                            class="select2 form-select">
+
+                                        </select>
                                     </div>
                                 </div>
-                                <small>
-                                       *for eligible
-                                    gyms, not garunteed</small>
-
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="filter-clear btn btn-primary">Clear Filters</button>
                     </div>
                 </div>
             </div>

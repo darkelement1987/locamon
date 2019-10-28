@@ -152,7 +152,7 @@ SQL;
             }
             $row->static_map = '';
             if ($mapkey !== '') {
-                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=400,200&zoom=16&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $id . '.png&key=' . $mapkey;
+                $row->static_map = 'https://open.mapquestapi.com/staticmap/v5/map?size=400,200&zoom=15&locations=' . $row->lat . ',' . $row->lon . '|https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' . $id . '.png&key=' . $mapkey;
             }
             $raids[] = $row;
         }
